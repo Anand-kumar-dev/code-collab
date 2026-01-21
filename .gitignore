@@ -1,0 +1,80 @@
+# ===============================
+# Node.js
+# ===============================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+
+# ===============================
+# Environment variables
+# ===============================
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# ===============================
+# Build outputs
+# ===============================
+dist/
+build/
+out/
+.next/
+.vite/
+
+# ===============================
+# React / Frontend
+# ===============================
+coverage/
+.eslintcache
+*.log
+
+# ===============================
+# Monaco Editor / Web Workers
+# ===============================
+*.worker.js
+*.worker.ts
+
+# ===============================
+# Socket / Runtime files
+# ===============================
+*.pid
+*.seed
+*.sock
+
+# ===============================
+# OS & Editor junk
+# ===============================
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# ===============================
+# TypeScript
+# ===============================
+*.tsbuildinfo
+
+# ===============================
+# Cache
+# ===============================
+.cache/
+.turbo/
+.nx/
+
+# ===============================
+# Testing
+# ===============================
+playwright-report/
+test-results/
+
+# ===============================
+# Docker
+# ===============================
+.dockerignore
