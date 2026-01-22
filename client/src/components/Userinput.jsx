@@ -5,12 +5,10 @@ function Userinput({ heading, value ,onchange  , onClick}) {
         <>
             <div className="w-full max-w-md bg-[#111] border border-zinc-800 rounded-2xl p-6 shadow-xl">
 
-                {/* Heading */}
                 <h2 className="text-2xl font-bold text-white mb-4">
                     {heading}
                 </h2>
 
-                {/* Input */}
                 <input
                     type="text"
                     placeholder="Type here..."
@@ -33,7 +31,6 @@ function Userinput({ heading, value ,onchange  , onClick}) {
                      onChange={onchange}
                      />
 
-                {/* Button */}
                 <button 
                 className="w-full bg-blue-600 hover:bg-blue-500 py-3 rounded-lg font-medium transition"
                 onClick={onClick}>

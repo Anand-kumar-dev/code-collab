@@ -6,11 +6,18 @@ import Editors from '../components/Editors';
 function Create() {
     const [RoomId, setRoomId] = React.useState("");
     const [roomuser, setroomuser] = React.useState("");
+    const [notification, setnotification] = React.useState(""); 
 
     useEffect(() => {
         socket.on("room-created", ({ roomId }) => {
             console.log("Room created:", roomId);
             setRoomId(roomId);
+        });
+
+        socket.on("user-joined", ({ username }) => {
+            console.log(`${username} joined the room`);
+            setnotification(`${username} joined the room`);
+            setTimeout(() => setnotification(""), 3000);
         });
     }, []);
 
@@ -37,6 +44,11 @@ function Create() {
         <h2 className="text-white font-semibold">
           Room ID: {RoomId}
         </h2>
+        {notification && (
+          <div className="mt-2 text-sm text-green-400">
+            {notification}
+          </div>
+        )}
       </div>
 
       {/* Editor */}
