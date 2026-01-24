@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { socket } from '../socket';
 import Editors from '../components/Editors';
 
@@ -9,12 +9,21 @@ function Join() {
     const [error, setError] = useState(null);
     const [joined, setJoined] = useState(false);
     const [notification, setnotification] = useState("");
+    const editorRef = useRef(null);
+    const monacoRef = useRef(null);
+
+    const handleMount = (editor, monaco) => {
+        editorRef.current = editor;
+        monacoRef.current = monaco;
+    };
 
     useEffect(() => {
+
         socket.on("joined-room", ({ roomId, username }) => {
             console.log(`${username} joined room ${roomId}`);
 
         });
+
         socket.on("user-joined", ({ username }) => {
             console.log(`${username} joined the room`);
             setnotification(`${username} joined the room`);
@@ -26,6 +35,12 @@ function Join() {
             setJoined(false);
             setError(message);
         });
+
+        socket.on("getmodel", (model) => {
+            console.log("Received model update:", model);
+            editorRef.current.setValue(model);
+        });
+        
     }, []);
 
 
@@ -86,26 +101,26 @@ function Join() {
                 </button>
 
             </div>)
-             : (<div className="h-screen w-full flex flex-col bg-[#121212]">
+                : (<div className="h-screen w-full flex flex-col bg-[#121212]">
 
-                {/* Header */}
-                <div className="p-4 border-b border-zinc-800">
-                    <h2 className="text-white font-semibold">
-                        Room ID: {RoomId}
-                    </h2>
-                    {notification && (
-                        <div className="mt-2 text-sm text-green-400">
-                            {notification}
-                        </div>
-                    )}
-                </div>
+                    {/* Header */}
+                    <div className="p-4 border-b border-zinc-800">
+                        <h2 className="text-white font-semibold">
+                            Room ID: {RoomId}
+                        </h2>
+                        {notification && (
+                            <div className="mt-2 text-sm text-green-400">
+                                {notification}
+                            </div>
+                        )}
+                    </div>
 
-                {/* Editor */}
-                <div className="flex-1 overflow-hidden">
-                    <Editors />
-                </div>
+                    {/* Editor */}
+                    <div className="flex-1 overflow-hidden">
+                        <Editors handleMount={handleMount} />
+                    </div>
 
-            </div>)
+                </div>)
             }
 
             {error && <div className="error">{error}</div>}

@@ -1,15 +1,20 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import Editor from '@monaco-editor/react';
-function Editors() {
+
+
+
+function Editors({ handleMount}) {
+
   return (
-    
-   <div className="h-screen w-screen overflow-hidden">
-  <Editor
-    options={{ automaticLayout: true }}
-    language="javascript"
-    theme="light"
-  />
-</div>
+
+    <div className="h-screen w-screen overflow-hidden">
+      <Editor
+        onMount={handleMount}
+        options={{ automaticLayout: true }}
+        language="javascript"
+        theme="light"
+      />
+    </div>
 
   )
 }

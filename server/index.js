@@ -26,16 +26,23 @@ io.on('connection', (socket) => {
   socket.on("join-room", ({ roomId, username }) => {
 
     console.log(`User ${username} is trying to join room ${roomId}`);
-    
+
     const roomExists = io.sockets.adapter.rooms.has(roomId);
-    console.log(`Room exists: ${roomExists}`);
     if (!roomExists) {
       socket.emit("error", "Room does not exist");
       return;
     };
+
     socket.join(roomId);
-    socket.to(roomId).emit("user-joined", { username });
+    socket.to(roomId).emit("user-joined", { username });   
+
   });
+
+
+  socket.on("setmodel", ({roomId , model}) => {
+      console.log(model)
+      socket.to(roomId).emit("getmodel", model);
+    });
 
 
 
